@@ -5,6 +5,7 @@ using FASTER.core;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace VarLenStructSample
 {
@@ -35,8 +36,9 @@ namespace VarLenStructSample
             }
         }
 
-        public void UpsertCompletionCallback(ref VarLenType key, ref VarLenType output, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref VarLenType key, ref VarLenType output, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref VarLenType key, Empty ctx)

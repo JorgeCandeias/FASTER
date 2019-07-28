@@ -84,7 +84,7 @@ namespace ClassSample
         public void ConcurrentWriter(ref MyKey key, ref MyValue src, ref MyValue dst) => dst = src;
 
         public void ReadCompletionCallback(ref MyKey key, ref MyInput input, ref MyOutput output, MyContext ctx, Status status) { }
-        public void UpsertCompletionCallback(ref MyKey key, ref MyValue value, MyContext ctx) { }
+        public ValueTask UpsertCompletionCallback(ref MyKey key, ref MyValue value, MyContext ctx) => new ValueTask();
         public void RMWCompletionCallback(ref MyKey key, ref MyInput input, MyContext ctx, Status status) { }
         public void DeleteCompletionCallback(ref MyKey key, MyContext ctx) { }
         public void CheckpointCompletionCallback(Guid sessionId, long serialNum) { }

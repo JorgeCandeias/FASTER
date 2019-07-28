@@ -1,15 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 using FASTER.core;
-using System.IO;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace FASTER.test
 {
@@ -39,7 +33,7 @@ namespace FASTER.test
 
 
         [Test]
-        public void SessionTest1()
+        public async Task SessionTest1()
         {
             using (var session = fht.StartSharedSession())
             {
@@ -54,7 +48,7 @@ namespace FASTER.test
 
                 if (status == Status.PENDING)
                 {
-                    session.CompletePending(true);
+                    await session.CompletePending(true);
                 }
                 else
                 {
@@ -68,7 +62,7 @@ namespace FASTER.test
 
 
         [Test]
-        public void SessionTest2()
+        public async Task SessionTest2()
         {
             using (var session1 = fht.StartSharedSession())
             using (var session2 = fht.StartSharedSession())
@@ -88,7 +82,7 @@ namespace FASTER.test
 
                 if (status == Status.PENDING)
                 {
-                    session1.CompletePending(true);
+                    await session1.CompletePending(true);
                 }
                 else
                 {
@@ -102,7 +96,7 @@ namespace FASTER.test
 
                 if (status == Status.PENDING)
                 {
-                    session2.CompletePending(true);
+                    await session2.CompletePending(true);
                 }
                 else
                 {
@@ -119,7 +113,7 @@ namespace FASTER.test
         {
             using (var session = fht.StartSharedSession())
             {
-                Task.CompletedTask.ContinueWith((t) =>
+                Task.CompletedTask.ContinueWith(async (t) =>
                 {
                     InputStruct input = default(InputStruct);
                     OutputStruct output = default(OutputStruct);
@@ -132,7 +126,7 @@ namespace FASTER.test
 
                     if (status == Status.PENDING)
                     {
-                        session.CompletePending(true);
+                        await session.CompletePending(true);
                     }
                     else
                     {
@@ -151,7 +145,7 @@ namespace FASTER.test
             using (var session1 = fht.StartSharedSession())
             using (var session2 = fht.StartSharedSession())
             {
-                var t1 = Task.CompletedTask.ContinueWith((t) =>
+                var t1 = Task.CompletedTask.ContinueWith(async (t) =>
                 {
                     InputStruct input = default(InputStruct);
                     OutputStruct output = default(OutputStruct);
@@ -164,7 +158,7 @@ namespace FASTER.test
 
                     if (status == Status.PENDING)
                     {
-                        session1.CompletePending(true);
+                        await session1.CompletePending(true);
                     }
                     else
                     {
@@ -175,7 +169,7 @@ namespace FASTER.test
                     Assert.IsTrue(output.value.vfield2 == value1.vfield2);
                 });
 
-                var t2 = Task.CompletedTask.ContinueWith((t) =>
+                var t2 = Task.CompletedTask.ContinueWith(async (t) =>
                 {
                     InputStruct input = default(InputStruct);
                     OutputStruct output = default(OutputStruct);
@@ -189,7 +183,7 @@ namespace FASTER.test
 
                     if (status == Status.PENDING)
                     {
-                        session2.CompletePending(true);
+                        await session2.CompletePending(true);
                     }
                     else
                     {
@@ -206,7 +200,7 @@ namespace FASTER.test
         }
 
         [Test]
-        public void SessionTest5()
+        public async Task SessionTest5()
         {
             var session = fht.GetSharedSession();
             var id = session.ID;
@@ -222,7 +216,7 @@ namespace FASTER.test
 
             if (status == Status.PENDING)
             {
-                session.CompletePending(true);
+                await session.CompletePending(true);
             }
             else
             {
@@ -248,7 +242,7 @@ namespace FASTER.test
 
             if (status == Status.PENDING)
             {
-                session.CompletePending(true);
+                await session.CompletePending(true);
             }
             else
             {
@@ -259,7 +253,7 @@ namespace FASTER.test
 
             if (status == Status.PENDING)
             {
-                session.CompletePending(true);
+                await session.CompletePending(true);
             }
             else
             {

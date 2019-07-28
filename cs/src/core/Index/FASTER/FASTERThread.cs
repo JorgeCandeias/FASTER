@@ -8,10 +8,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
-    public unsafe partial class FasterKV<Key, Value, Input, Output, Context, Functions> : FasterBase, IFasterKV<Key, Value, Input, Output, Context>
+    public partial class FasterKV<Key, Value, Input, Output, Context, Functions> : FasterBase, IFasterKV<Key, Value, Input, Output, Context>
         where Key : new()
         where Value : new()
         where Functions : IFunctions<Key, Value, Input, Output, Context>
@@ -141,7 +142,7 @@ namespace FASTER.core
             threadCtx.Value = ctx;
         }
 
-        internal bool InternalCompletePending(bool wait = false)
+        internal async ValueTask<bool> InternalCompletePending(bool wait = false)
         {
             do
             {
@@ -154,7 +155,7 @@ namespace FASTER.core
                 {
                     CompleteIOPendingRequests(prevThreadCtx.Value);
                     Refresh();
-                    CompleteRetryRequests(prevThreadCtx.Value);
+                    await CompleteRetryRequests(prevThreadCtx.Value);
 
                     done &= (prevThreadCtx.Value.ioPendingRequests.Count == 0);
                     done &= (prevThreadCtx.Value.retryRequests.Count == 0);
@@ -168,7 +169,7 @@ namespace FASTER.core
                     CompleteIOPendingRequests(threadCtx.Value);
                 }
                 InternalRefresh();
-                CompleteRetryRequests(threadCtx.Value);
+                await CompleteRetryRequests(threadCtx.Value);
 
                 done &= (threadCtx.Value.ioPendingRequests.Count == 0);
                 done &= (threadCtx.Value.retryRequests.Count == 0);
@@ -181,20 +182,23 @@ namespace FASTER.core
                 if (wait)
                 {
                     // Yield before checking again
+
+                    // todo: test this - we should not get here anymore due to the awaits up there
                     Thread.Yield();
                 }
+
             } while (wait);
 
             return false;
         }
 
-        internal void CompleteRetryRequests(FasterExecutionContext context)
+        internal async ValueTask CompleteRetryRequests(FasterExecutionContext context)
         {
             int count = context.retryRequests.Count;
             for (int i = 0; i < count; i++)
             {
                 var pendingContext = context.retryRequests.Dequeue();
-                InternalRetryRequestAndCallback(context, pendingContext);
+                await InternalRetryRequestAndCallback(context, pendingContext);
             }
         }
 
@@ -208,7 +212,7 @@ namespace FASTER.core
             }
         }
 
-        internal void InternalRetryRequestAndCallback(
+        internal ValueTask InternalRetryRequestAndCallback(
                                     FasterExecutionContext ctx,
                                     PendingContext pendingContext)
         {
@@ -273,10 +277,9 @@ namespace FASTER.core
                                                 pendingContext.userContext, status);
                         break;
                     case OperationType.UPSERT:
-                        functions.UpsertCompletionCallback(ref key,
+                        return functions.UpsertCompletionCallback(ref key,
                                                  ref value,
                                                  pendingContext.userContext);
-                        break;
                     case OperationType.DELETE:
                         functions.DeleteCompletionCallback(ref key,
                                                  pendingContext.userContext);
@@ -286,6 +289,8 @@ namespace FASTER.core
                 }
                 
             }
+
+            return new ValueTask();
         }
 
         internal void InternalContinuePendingRequestAndCallback(

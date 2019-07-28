@@ -5,6 +5,7 @@ using FASTER.core;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace StructSampleCore
 {
@@ -28,7 +29,7 @@ namespace StructSampleCore
 
         // Completion callbacks
         public void ReadCompletionCallback(ref long key, ref long input, ref long output, Empty ctx, Status s) { }
-        public void UpsertCompletionCallback(ref long key, ref long value, Empty ctx) { }
+        public ValueTask UpsertCompletionCallback(ref long key, ref long value, Empty ctx) => new ValueTask();
         public void DeleteCompletionCallback(ref long key, Empty ctx) { }
         public void RMWCompletionCallback(ref long key, ref long input, Empty ctx, Status s) { }
         public void CheckpointCompletionCallback(Guid sessionId, long serialNum) { }
@@ -67,7 +68,7 @@ namespace StructSampleCore
 
         // Completion callbacks
         public void ReadCompletionCallback(ref Key key, ref Input input, ref Output output, Empty ctx, Status status) { }
-        public void UpsertCompletionCallback(ref Key key, ref Value output, Empty ctx) { }
+        public ValueTask UpsertCompletionCallback(ref Key key, ref Value output, Empty ctx) => new ValueTask();
         public void DeleteCompletionCallback(ref Key key, Empty ctx) { }
         public void RMWCompletionCallback(ref Key key, ref Input output, Empty ctx, Status status) { }
         public void CheckpointCompletionCallback(Guid sessionId, long serialNum) { }

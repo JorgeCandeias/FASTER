@@ -4,6 +4,7 @@
 #pragma warning disable 1591
 
 using System;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
@@ -30,7 +31,7 @@ namespace FASTER.core
 
         public virtual void ReadCompletionCallback(ref Key key, ref Input input, ref Output output, Context ctx, Status status) { }
         public virtual void RMWCompletionCallback(ref Key key, ref Input input, Context ctx, Status status) { }
-        public virtual void UpsertCompletionCallback(ref Key key, ref Value value, Context ctx) { }
+        public virtual ValueTask UpsertCompletionCallback(ref Key key, ref Value value, Context ctx) => new ValueTask();
         public virtual void DeleteCompletionCallback(ref Key key, Context ctx) { }
         public virtual void CheckpointCompletionCallback(Guid sessionId, long serialNum) { }
     }
@@ -60,7 +61,7 @@ namespace FASTER.core
 
         public override void ReadCompletionCallback(ref Key key, ref Value input, ref Value output, Context ctx, Status status) { }
         public override void RMWCompletionCallback(ref Key key, ref Value input, Context ctx, Status status) { }
-        public override void UpsertCompletionCallback(ref Key key, ref Value value, Context ctx) { }
+        public override ValueTask UpsertCompletionCallback(ref Key key, ref Value value, Context ctx) => new ValueTask();
         public override void DeleteCompletionCallback(ref Key key, Context ctx) { }
         public override void CheckpointCompletionCallback(Guid sessionId, long serialNum) { }
     }

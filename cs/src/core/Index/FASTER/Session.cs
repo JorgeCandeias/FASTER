@@ -4,6 +4,7 @@
 #pragma warning disable 0162
 
 using System;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
@@ -150,7 +151,7 @@ namespace FASTER.core
         /// </summary>
         /// <param name="wait"></param>
         /// <returns></returns>
-        public bool CompletePending(bool wait = false)
+        public ValueTask<bool> CompletePending(bool wait = false)
         {
             Resume();
             return fht.CompletePending(wait);

@@ -66,8 +66,9 @@ namespace FASTER.test
             Assert.IsTrue(output.value.vfield2 == key.kfield2);
         }
 
-        public void UpsertCompletionCallback(ref KeyStruct key, ref ValueStruct output, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref KeyStruct key, ref ValueStruct output, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref KeyStruct key, Empty ctx)
@@ -142,8 +143,9 @@ namespace FASTER.test
             }
         }
 
-        public void UpsertCompletionCallback(ref KeyStruct key, ref ValueStruct output, int ctx)
+        public ValueTask UpsertCompletionCallback(ref KeyStruct key, ref ValueStruct output, int ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref KeyStruct key, int ctx)

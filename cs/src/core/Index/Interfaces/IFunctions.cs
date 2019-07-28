@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
@@ -28,7 +29,7 @@ namespace FASTER.core
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="ctx"></param>
-        void UpsertCompletionCallback(ref Key key, ref Value value, Context ctx);
+        ValueTask UpsertCompletionCallback(ref Key key, ref Value value, Context ctx);
 
         /// <summary>
         /// RMW completion

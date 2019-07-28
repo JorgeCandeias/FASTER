@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
@@ -89,7 +90,7 @@ namespace FASTER.core
         /// </summary>
         /// <param name="wait">Whether we spin-wait for pending operations to complete</param>
         /// <returns>Whether all pending operations have completed</returns>
-        bool CompletePending(bool wait);
+        ValueTask<bool> CompletePending(bool wait);
 
 
         /* Recovery */

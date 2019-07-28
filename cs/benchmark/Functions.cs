@@ -7,6 +7,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using FASTER.core;
+using System.Threading.Tasks;
 
 namespace FASTER.benchmark
 {
@@ -20,8 +21,9 @@ namespace FASTER.benchmark
         {
         }
 
-        public void UpsertCompletionCallback(ref Key key, ref Value value, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref Key key, ref Value value, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref Key key, Empty ctx)

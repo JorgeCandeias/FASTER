@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
@@ -408,7 +409,7 @@ namespace FASTER.core
         /// </summary>
         /// <param name="wait"></param>
         /// <returns></returns>
-        public bool CompletePending(bool wait = false)
+        public ValueTask<bool> CompletePending(bool wait = false)
         {
             return InternalCompletePending(wait);
         }

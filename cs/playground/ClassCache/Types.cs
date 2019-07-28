@@ -153,7 +153,7 @@ namespace ClassCache
             dst = src;
         }
 
-        public void UpsertCompletionCallback(ref CacheKey key, ref CacheValue value, CacheContext ctx)
+        public ValueTask UpsertCompletionCallback(ref CacheKey key, ref CacheValue value, CacheContext ctx)
         {
             throw new NotImplementedException();
         }

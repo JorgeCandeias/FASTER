@@ -3,6 +3,7 @@
 
 using FASTER.core;
 using System;
+using System.Threading.Tasks;
 
 namespace FixedLenStructSample
 {
@@ -59,8 +60,9 @@ namespace FixedLenStructSample
             src.CopyTo(ref dst);
         }
 
-        public void UpsertCompletionCallback(ref FixedLenKey key, ref FixedLenValue value, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref FixedLenKey key, ref FixedLenValue value, Empty ctx)
         {
+            return new ValueTask();
         }
     }
 }

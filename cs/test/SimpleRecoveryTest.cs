@@ -163,8 +163,9 @@ namespace FASTER.test.recovery.sumstore.simple
             Assert.IsTrue(output.value.numClicks == key.adId);
         }
 
-        public void UpsertCompletionCallback(ref AdId key, ref NumClicks input, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref AdId key, ref NumClicks input, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref AdId key, Empty ctx)

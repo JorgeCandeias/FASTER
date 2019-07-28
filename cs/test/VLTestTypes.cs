@@ -126,8 +126,9 @@ namespace FASTER.test
             }
         }
 
-        public void UpsertCompletionCallback(ref Key key, ref VLValue output, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref Key key, ref VLValue output, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref Key key, Empty ctx)
@@ -191,8 +192,9 @@ namespace FASTER.test
             }
         }
 
-        public void UpsertCompletionCallback(ref VLValue key, ref VLValue output, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref VLValue key, ref VLValue output, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref VLValue key, Empty ctx)

@@ -70,8 +70,10 @@ namespace FASTER.core.async
             await tcs.Task;
         }
 
-
-        public async Task<Guid> TakeCheckpoint(long untilSN = -1)
+        /// <summary>
+        /// TakeCheckpoint
+        /// </summary>
+        public Task<Guid> TakeCheckpoint(long untilSN = -1)
         {
             throw new Exception();
         }

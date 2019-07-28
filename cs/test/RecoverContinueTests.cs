@@ -10,6 +10,7 @@ using FASTER.core;
 using System.IO;
 using NUnit.Framework;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace FASTER.test.recovery.sumstore.recover_continue
 {
@@ -182,8 +183,9 @@ namespace FASTER.test.recovery.sumstore.recover_continue
             Assert.IsTrue(output.value.numClicks == key.adId);
         }
 
-        public void UpsertCompletionCallback(ref AdId key, ref NumClicks input, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref AdId key, ref NumClicks input, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref AdId key, Empty ctx)

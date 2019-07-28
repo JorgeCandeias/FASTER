@@ -5,6 +5,7 @@
 
 
 using System;
+using System.Threading.Tasks;
 
 namespace FASTER.core
 {
@@ -276,7 +277,7 @@ namespace FASTER.core
             public void RMWCompletionCallback(ref Key key, ref Input input, Context ctx, Status status) { }
             public void SingleReader(ref Key key, ref Input input, ref Value value, ref Output dst) { }
             public void SingleWriter(ref Key key, ref Value src, ref Value dst) { dst = src; }
-            public void UpsertCompletionCallback(ref Key key, ref Value value, Context ctx) { }
+            public ValueTask UpsertCompletionCallback(ref Key key, ref Value value, Context ctx) => new ValueTask();
             public void DeleteCompletionCallback(ref Key key, Context ctx) { }
         }
     }

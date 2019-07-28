@@ -115,8 +115,9 @@ namespace FASTER.test
             Assert.IsTrue(status == Status.OK);
         }
 
-        public void UpsertCompletionCallback(ref MyKey key, ref MyValue value, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref MyKey key, ref MyValue value, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref MyKey key, Empty ctx)
@@ -186,8 +187,9 @@ namespace FASTER.test
                 Assert.IsTrue(status == Status.NOTFOUND);
         }
 
-        public void UpsertCompletionCallback(ref MyKey key, ref MyValue value, int ctx)
+        public ValueTask UpsertCompletionCallback(ref MyKey key, ref MyValue value, int ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref MyKey key, int ctx)
@@ -244,8 +246,9 @@ namespace FASTER.test
         {
         }
 
-        public void UpsertCompletionCallback(ref int key, ref MyValue value, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref int key, ref MyValue value, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref int key, Empty ctx)
@@ -318,8 +321,9 @@ namespace FASTER.test
         }
 
 
-        public void UpsertCompletionCallback(ref MyKey key, ref MyLargeValue value, Empty ctx)
+        public ValueTask UpsertCompletionCallback(ref MyKey key, ref MyLargeValue value, Empty ctx)
         {
+            return new ValueTask();
         }
 
         public void DeleteCompletionCallback(ref MyKey key, Empty ctx)
